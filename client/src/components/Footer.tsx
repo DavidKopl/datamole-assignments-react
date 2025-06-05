@@ -22,6 +22,7 @@ export const Footer = (props: FooterProps) => {
     return (
         <FooterStyled>
             Todo: {todoItems}
+            <br></br>
             Done: {todoItems}
         </FooterStyled>
     );
