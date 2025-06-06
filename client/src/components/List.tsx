@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ListItem } from "./ListItem";
-import { TodoItem, Item, ListProps } from "../types";
+import { Item, ListProps } from "../types";
 
 const ListStyled = styled.div`
     display: flex;
@@ -10,15 +10,12 @@ const ListStyled = styled.div`
 export const List = ({ items, onItemsUpdate }: ListProps) => {
     const updateItem = async (id: number, changes: Partial<Item>) => {
         let updatedItem;
-
-        // Pokud je změna na "done: true", použij nový endpoint
         if ("isDone" in changes && changes.isDone === true) {
             const res = await fetch(`http://localhost:3000/items/${id}/markDone`, {
                 method: "POST",
             });
             updatedItem = await res.json();
         } else {
-            // Jinak PATCH
             const res = await fetch(`http://localhost:3000/items/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { InputProps } from "../../types";
 
 const InputStyled = styled.input`
     padding: 8px 12px;
@@ -14,11 +15,6 @@ const InputStyled = styled.input`
         box-shadow: 0 0 5px ##46a758;
     }
 `;
-
-type InputProps = {
-    value: string;
-    onValueChange: (value: string) => void;
-};
 
 export const Input = (props: InputProps) => {
     const { value, onValueChange } = props;

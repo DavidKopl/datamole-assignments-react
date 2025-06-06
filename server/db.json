@@ -31,19 +31,6 @@
       "id": 7,
       "finishedAt": 1749227384926,
       "done": true
-    },
-    {
-      "label": "Ahoj",
-      "isDone": false,
-      "createdAt": 1749229185467,
-      "id": 8,
-      "done": true
-    },
-    {
-      "label": "Empty as fuck",
-      "done": true,
-      "createdAt": 1749232314249,
-      "id": 9
     }
   ]
 }

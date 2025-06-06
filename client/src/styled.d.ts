@@ -1,4 +1,3 @@
-// src/styled.d.ts
 import "styled-components";
 import { olive, grass, blackA, green, gray } from "@radix-ui/colors";
 

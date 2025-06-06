@@ -1,13 +1,9 @@
 import { CheckIcon, Cross1Icon } from "@radix-ui/react-icons";
 import { useState } from "react";
-import styled from "styled-components";
+import { FormStyled } from "../styles/GlobalStyle";
 import { Button } from "../Button";
 import { Input } from "./Input";
 import { FormProps } from "../../types";
-
-const FormStyled = styled.form`
-    display: flex;
-`;
 
 export const Form = (props: FormProps) => {
     const { initialValue, onSubmit, onCancel } = props;
