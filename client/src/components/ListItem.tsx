@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { Checkbox } from "./Checkbox";
 import { Button } from "./Button";
@@ -54,7 +54,7 @@ export const ListItem = (props: LiteeItemProp) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedLabel, setEditedLabel] = useState(label);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: any) => {
         e.preventDefault();
         onItemLabelEdit(editedLabel);
         setIsEditing(false);

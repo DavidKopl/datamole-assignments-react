@@ -12,6 +12,7 @@ const theme = {
     },
 };
 
+export type ThemeType = typeof theme;
 export const ThemeProvider = (props: PropsWithChildren) => {
     const { children } = props;
 

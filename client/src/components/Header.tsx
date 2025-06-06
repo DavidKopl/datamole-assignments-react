@@ -1,7 +1,7 @@
 import { PlusIcon } from "@radix-ui/react-icons";
 import React from "react";
 import styled from "styled-components";
-import { Form } from "./Form";
+import { Form } from "./form/Form";
 import { Button } from "./Button";
 
 const StyledDiv = styled.header`

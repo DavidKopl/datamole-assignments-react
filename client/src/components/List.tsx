@@ -1,26 +1,43 @@
 import styled from "styled-components";
 import { ListItem } from "./ListItem";
+import { TodoItem, Item, ListProps } from "../types";
 
 const ListStyled = styled.div`
     display: flex;
     flex-direction: column;
 `;
 
-type Item = {
-    id: number;
-    label: string;
-    isDone: boolean;
-};
-type ListProps = {
-    items: TodoItem[];
-    onItemsUpdate: (items: TodoItem[]) => void; // možná nebudeš používat, ale může být
-    onItemUpdate: (id: number, changes: Partial<TodoItem>) => void;
-    onItemDelete: (id: number) => void;
-};
+export const List = ({ items, onItemsUpdate }: ListProps) => {
+    const updateItem = async (id: number, changes: Partial<Item>) => {
+        let updatedItem;
 
-export const List = ({ items, onItemUpdate, onItemDelete }: ListProps) => {
+        // Pokud je změna na "done: true", použij nový endpoint
+        if ("isDone" in changes && changes.isDone === true) {
+            const res = await fetch(`http://localhost:3000/items/${id}/markDone`, {
+                method: "POST",
+            });
+            updatedItem = await res.json();
+        } else {
+            // Jinak PATCH
+            const res = await fetch(`http://localhost:3000/items/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(changes),
+            });
+            updatedItem = await res.json();
+        }
+
+        const newItems = items.map((item) => (item.id === id ? updatedItem : item));
+        onItemsUpdate(newItems);
+    };
+
+    const deleteItem = async (id: number) => {
+        await fetch(`http://localhost:3000/items/${id}`, { method: "DELETE" });
+        onItemsUpdate(items.filter((item) => item.id !== id));
+    };
+
     const sortedItems = [...items].sort((a, b) => {
-        if (a.isDone !== b.isDone) return a.isDone ? 1 : -1;
+        if (a.done !== b.done) return a.done ? 1 : -1;
         return b.createdAt - a.createdAt;
     });
 
@@ -30,10 +47,10 @@ export const List = ({ items, onItemUpdate, onItemDelete }: ListProps) => {
                 <ListItem
                     key={item.id}
                     label={item.label}
-                    isDone={item.isDone}
-                    onItemLabelEdit={(newLabel) => onItemUpdate(item.id, { label: newLabel })}
-                    onItemDoneToggle={(checked) => onItemUpdate(item.id, { isDone: checked })}
-                    onItemDelete={() => onItemDelete(item.id)}
+                    isDone={item.done}
+                    onItemLabelEdit={(newLabel) => updateItem(item.id, { label: newLabel })}
+                    onItemDoneToggle={(checked) => updateItem(item.id, { done: checked })}
+                    onItemDelete={() => deleteItem(item.id)}
                 />
             ))}
         </ListStyled>

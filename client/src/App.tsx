@@ -5,14 +5,8 @@ import { List } from "./components/List";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { ThemeProvider } from "./components/providers/ThemeProvider";
-import { Form } from "./components/Form";
+import { TodoItem } from "./types";
 
-type TodoItem = {
-    id: number;
-    label: string;
-    isDone: boolean;
-    createdAt: number;
-};
 export const App = () => {
     const [items, setItems] = useState<TodoItem[]>([]);
     const [isAdding, setIsAdding] = useState(false);
@@ -24,13 +18,13 @@ export const App = () => {
             .catch((err) => console.error("Failed to load items", err));
     }, []);
 
-    const todoCount = items.filter((item) => !item.isDone).length;
-    const doneCount = items.filter((item) => item.isDone).length;
+    const todoCount = items.filter((item) => !item.done).length;
+    const doneCount = items.filter((item) => item.done).length;
 
     const toggleAddForm = () => setIsAdding((v) => !v);
 
     const addTodo = (label: string) => {
-        const newItem = { label, isDone: false };
+        const newItem = { label, done: false };
         fetch("http://localhost:3000/items", {
             method: "POST",
             headers: { "Content-Type": "application/json" },

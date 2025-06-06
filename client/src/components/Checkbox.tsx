@@ -5,14 +5,11 @@ import styled from "styled-components";
 
 const CheckboxStyled = styled(CheckboxPrimitive.Root)`
     all: unset;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     width: 25px;
     height: 25px;
-
     background-color: white;
     border-radius: 2px;
     box-shadow: ${(props) => `0 2px 10px ${props.theme.colors.blackA7}`};
@@ -27,7 +24,7 @@ const CheckboxStyled = styled(CheckboxPrimitive.Root)`
 `;
 
 const CheckboxIndicator = styled(CheckboxPrimitive.Indicator)`
-    color: ${(props) => props.theme.grass11};
+    color: ${(props) => props.theme.colors.grass11};
 `;
 
 export const Checkbox = (props: CheckboxProps) => (
