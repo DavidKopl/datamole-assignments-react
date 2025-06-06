@@ -2,6 +2,7 @@ import { PlusIcon } from "@radix-ui/react-icons";
 import React from "react";
 import styled from "styled-components";
 import { Form } from "./Form";
+import { Button } from "./Button";
 
 const StyledDiv = styled.header`
     display: flex;
@@ -41,9 +42,9 @@ export const Header = (props: HeaderProps) => {
             {isAdding ? (
                 <Form initialValue="" onSubmit={(value) => onItemAdd(value)} onCancel={onAddClick} />
             ) : (
-                <button onClick={onAddClick} aria-label="Přidat úkol">
+                <Button onClick={onAddClick} aria-label="Přidat úkol">
                     <PlusIcon />
-                </button>
+                </Button>
             )}
         </StyledDiv>
     );

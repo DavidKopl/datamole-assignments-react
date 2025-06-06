@@ -16,7 +16,6 @@ type ListProps = {
     items: Item[];
     onItemsUpdate: (updated: Item[]) => void;
 };
-
 export const List = ({ items, onItemsUpdate }: ListProps) => {
     const updateItem = async (id: number, changes: Partial<Item>) => {
         const res = await fetch(`http://localhost:3000/items/${id}`, {
@@ -24,20 +23,23 @@ export const List = ({ items, onItemsUpdate }: ListProps) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(changes),
         });
-        const updated = await res.json();
-        onItemsUpdate(items.map((item) => (item.id === id ? updated : item)));
+        const updatedItem = await res.json();
+        const newItems = items.map((item) => (item.id === id ? updatedItem : item));
+        onItemsUpdate(newItems);
     };
 
-    const deleteItem = async (id: number) => {
-        await fetch(`http://localhost:3000/items/${id}`, {
-            method: "DELETE",
-        });
-        onItemsUpdate(items.filter((item) => item.id !== id));
-    };
+    const sortedItems = [...items].sort((a, b) => {
+        // 1. Nedokončené nahoru
+        if (a.isDone !== b.isDone) {
+            return a.isDone ? 1 : -1;
+        }
+        // 2. Nejnovější první
+        return b.createdAt - a.createdAt;
+    });
 
     return (
         <ListStyled>
-            {items.map((item) => (
+            {sortedItems.map((item) => (
                 <ListItem
                     key={item.id}
                     label={item.label}

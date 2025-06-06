@@ -2,6 +2,7 @@ import { Pencil1Icon, TrashIcon } from "@radix-ui/react-icons";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Checkbox } from "./Checkbox";
+import { Button } from "./Button";
 
 const StyledDiv = styled.div`
     display: flex;
@@ -39,20 +40,20 @@ export const ListItem = (props: LiteeItemProp) => {
             {isEditing ? (
                 <form onSubmit={handleSubmit}>
                     <input type="text" value={editedLabel} onChange={(e) => setEditedLabel(e.target.value)} />
-                    <button type="submit">Save</button>
-                    <button type="button" onClick={() => setIsEditing(false)}>
+                    <Button type="submit">Save</Button>
+                    <Button type="button" onClick={() => setIsEditing(false)}>
                         Cancel
-                    </button>
+                    </Button>
                 </form>
             ) : (
                 <>
                     <Label>{label}</Label>
-                    <button onClick={() => setIsEditing(true)}>
+                    <Button onClick={() => setIsEditing(true)}>
                         <Pencil1Icon />
-                    </button>
-                    <button onClick={onItemDelete}>
+                    </Button>
+                    <Button onClick={onItemDelete}>
                         <TrashIcon />
-                    </button>
+                    </Button>
                 </>
             )}
         </StyledDiv>
