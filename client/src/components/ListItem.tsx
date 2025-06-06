@@ -10,7 +10,14 @@ const StyledDiv = styled.div`
 `;
 
 const Label = styled.label`
+    flex-grow: 1;
     margin-left: 15px;
+`;
+
+const Actions = styled.div`
+    display: flex;
+    gap: 8px; // mezera mezi tlačítky
+    margin-left: auto; // tlačítka posune doprava
 `;
 
 export type LiteeItemProp = {
@@ -48,12 +55,14 @@ export const ListItem = (props: LiteeItemProp) => {
             ) : (
                 <>
                     <Label>{label}</Label>
-                    <Button onClick={() => setIsEditing(true)}>
-                        <Pencil1Icon />
-                    </Button>
-                    <Button onClick={onItemDelete}>
-                        <TrashIcon />
-                    </Button>
+                    <Actions>
+                        <Button onClick={() => setIsEditing(true)}>
+                            <Pencil1Icon />
+                        </Button>
+                        <Button onClick={onItemDelete}>
+                            <TrashIcon />
+                        </Button>
+                    </Actions>
                 </>
             )}
         </StyledDiv>
