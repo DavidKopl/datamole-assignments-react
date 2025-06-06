@@ -13,7 +13,6 @@ type TodoItem = {
     isDone: boolean;
     createdAt: number;
 };
-
 export const App = () => {
     const [items, setItems] = useState<TodoItem[]>([]);
     const [isAdding, setIsAdding] = useState(false);
@@ -28,15 +27,10 @@ export const App = () => {
     const todoCount = items.filter((item) => !item.isDone).length;
     const doneCount = items.filter((item) => item.isDone).length;
 
-    // Přepnutí režimu přidávání
     const toggleAddForm = () => setIsAdding((v) => !v);
 
     const addTodo = (label: string) => {
-        const newItem = {
-            label,
-            isDone: false,
-        };
-
+        const newItem = { label, isDone: false };
         fetch("http://localhost:3000/items", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -44,12 +38,37 @@ export const App = () => {
         })
             .then((res) => res.json())
             .then((createdItem: TodoItem) => {
-                setItems((oldItems) => [...oldItems, createdItem]);
+                setItems((old) => [...old, createdItem]);
                 setIsAdding(false);
             })
-            .catch((err) => {
-                console.error("Chyba při přidávání:", err);
+            .catch(console.error);
+    };
+
+    // Aktualizace položky
+    const updateItem = async (id: number, changes: Partial<TodoItem>) => {
+        try {
+            const res = await fetch(`http://localhost:3000/items/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(changes),
             });
+            const updatedItem = await res.json();
+            setItems((old) => old.map((item) => (item.id === id ? updatedItem : item)));
+        } catch (e) {
+            console.error("Update failed", e);
+        }
+    };
+
+    // Smazání položky
+    const deleteItem = async (id: number) => {
+        try {
+            await fetch(`http://localhost:3000/items/${id}`, {
+                method: "DELETE",
+            });
+            setItems((old) => old.filter((item) => item.id !== id));
+        } catch (e) {
+            console.error("Delete failed", e);
+        }
     };
 
     return (
@@ -60,7 +79,9 @@ export const App = () => {
                         To Do app
                     </Header>
 
-                    <List items={items} />
+                    {/* Předáme callbacky do List */}
+                    <List items={items} onItemsUpdate={setItems} onItemUpdate={updateItem} onItemDelete={deleteItem} />
+
                     <Footer todoItems={todoCount} doneItems={doneCount} />
                 </Layout>
             </Container>

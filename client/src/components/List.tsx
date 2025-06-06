@@ -11,29 +11,16 @@ type Item = {
     label: string;
     isDone: boolean;
 };
-
 type ListProps = {
-    items: Item[];
-    onItemsUpdate: (updated: Item[]) => void;
+    items: TodoItem[];
+    onItemsUpdate: (items: TodoItem[]) => void; // možná nebudeš používat, ale může být
+    onItemUpdate: (id: number, changes: Partial<TodoItem>) => void;
+    onItemDelete: (id: number) => void;
 };
-export const List = ({ items, onItemsUpdate }: ListProps) => {
-    const updateItem = async (id: number, changes: Partial<Item>) => {
-        const res = await fetch(`http://localhost:3000/items/${id}`, {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(changes),
-        });
-        const updatedItem = await res.json();
-        const newItems = items.map((item) => (item.id === id ? updatedItem : item));
-        onItemsUpdate(newItems);
-    };
 
+export const List = ({ items, onItemUpdate, onItemDelete }: ListProps) => {
     const sortedItems = [...items].sort((a, b) => {
-        // 1. Nedokončené nahoru
-        if (a.isDone !== b.isDone) {
-            return a.isDone ? 1 : -1;
-        }
-        // 2. Nejnovější první
+        if (a.isDone !== b.isDone) return a.isDone ? 1 : -1;
         return b.createdAt - a.createdAt;
     });
 
@@ -44,9 +31,9 @@ export const List = ({ items, onItemsUpdate }: ListProps) => {
                     key={item.id}
                     label={item.label}
                     isDone={item.isDone}
-                    onItemLabelEdit={(newLabel) => updateItem(item.id, { label: newLabel })}
-                    onItemDoneToggle={(checked) => updateItem(item.id, { isDone: checked })}
-                    onItemDelete={() => deleteItem(item.id)}
+                    onItemLabelEdit={(newLabel) => onItemUpdate(item.id, { label: newLabel })}
+                    onItemDoneToggle={(checked) => onItemUpdate(item.id, { isDone: checked })}
+                    onItemDelete={() => onItemDelete(item.id)}
                 />
             ))}
         </ListStyled>
