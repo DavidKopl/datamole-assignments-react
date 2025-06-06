@@ -6,6 +6,7 @@ import { Button } from "./Button";
 
 const StyledDiv = styled.header`
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 10px;
 

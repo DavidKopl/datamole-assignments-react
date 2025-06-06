@@ -13,8 +13,8 @@
       "id": 3
     },
     {
-      "label": "David",
-      "isDone": false,
+      "label": "Kate",
+      "isDone": true,
       "createdAt": 1749140411007,
       "id": 5
     },
