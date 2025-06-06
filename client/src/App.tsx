@@ -51,7 +51,6 @@ export const App = () => {
                 console.error("Chyba při přidávání:", err);
             });
     };
-    console.log(items);
 
     return (
         <ThemeProvider>
