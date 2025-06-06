@@ -20,6 +20,8 @@ A sleek, simple, and probably-overengineered Todo App built with **React**, **Ty
 -   🎭 Toggle todo done/not-done
 -   🪄 Custom hook (`useTodos`) for state wizardry
 
+# 🧪 Usage
+
 ## 💪 Clone repository
 
 ```bash
@@ -27,17 +29,15 @@ git clone https://github.com/datamole-ai/assignments-react.git
 cd datamole-assignments-react
 ```
 
-then
+If you won a title as a most lazy person in company, use my secret script❤️
 
-## 🧪 Usage
+```bash
+npm run champion-of-laziness
+```
+
+or
 
 ```bash
 npm install-all
 npm run dev
-```
-
-or if you won a title as a most lazy person in company, use my secret script❤️
-
-```bash
-npm run champion-of-laziness
 ```
