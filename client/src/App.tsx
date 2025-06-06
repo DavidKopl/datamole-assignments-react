@@ -38,7 +38,6 @@ export const App = () => {
             .catch(console.error);
     };
 
-    // Aktualizace položky
     const updateItem = async (id: number, changes: Partial<TodoItem>) => {
         try {
             const res = await fetch(`http://localhost:3000/items/${id}`, {
@@ -53,7 +52,6 @@ export const App = () => {
         }
     };
 
-    // Smazání položky
     const deleteItem = async (id: number) => {
         try {
             await fetch(`http://localhost:3000/items/${id}`, {
@@ -70,12 +68,11 @@ export const App = () => {
             <Container>
                 <Layout>
                     <Header isAdding={isAdding} onAddClick={toggleAddForm} onItemAdd={addTodo}>
-                        To Do app
+                        {todoCount === 0 && doneCount === 0 && "Write your first todo:"}
+                        {todoCount === 0 && doneCount > 0 && "All done! Add more if you like:"}
+                        {todoCount > 0 && "Keep going, you’ve got this!"}
                     </Header>
-
-                    {/* Předáme callbacky do List */}
                     <List items={items} onItemsUpdate={setItems} onItemUpdate={updateItem} onItemDelete={deleteItem} />
-
                     <Footer todoItems={todoCount} doneItems={doneCount} />
                 </Layout>
             </Container>

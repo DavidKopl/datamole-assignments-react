@@ -10,6 +10,12 @@ export interface TodoItem extends Item {
     finishedAt?: string | number;
 }
 
+export type FormProps = {
+    initialValue: string;
+    onSubmit: (value: string) => void;
+    onCancel: () => void;
+};
+
 export type ListProps = {
     items: TodoItem[];
     onItemsUpdate: (items: TodoItem[]) => void;

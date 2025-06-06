@@ -8,12 +8,12 @@ const StyledDiv = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
-
     button {
         all: unset;
         width: 25px;
         height: 25px;
+        margin-left: 15px;
+        align-self: center;
         background-color: ${(props) => props.theme.colors.grass9};
         border: 1px solid;
         border-color: ${(props) => props.theme.colors.olive9};
@@ -24,6 +24,11 @@ const StyledDiv = styled.header`
         justify-content: center;
         align-items: center;
     }
+`;
+
+const Title = styled.h1`
+    font-size: 2rem;
+    font-weight: 700;
 `;
 
 type HeaderProps = {
@@ -38,12 +43,12 @@ export const Header = (props: HeaderProps) => {
 
     return (
         <StyledDiv>
-            <h1>{children}</h1>
+            <Title>{children}</Title>
 
             {isAdding ? (
                 <Form initialValue="" onSubmit={(value) => onItemAdd(value)} onCancel={onAddClick} />
             ) : (
-                <Button onClick={onAddClick} aria-label="Přidat úkol">
+                <Button onClick={onAddClick} aria-label="Add task">
                     <PlusIcon />
                 </Button>
             )}

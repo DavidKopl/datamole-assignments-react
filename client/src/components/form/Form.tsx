@@ -3,37 +3,34 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Button } from "../Button";
 import { Input } from "./Input";
+import { FormProps } from "../../types";
 
 const FormStyled = styled.form`
     display: flex;
 `;
-
-type FormProps = {
-    initialValue: string;
-    onSubmit: (value: string) => void;
-    onCancel: () => void;
-};
 
 export const Form = (props: FormProps) => {
     const { initialValue, onSubmit, onCancel } = props;
 
     const [inputValue, setInputValue] = useState(initialValue);
 
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (inputValue.trim() === "") {
+            alert("Don't be stupid and enter a todo before submitting.🤓");
+            return;
+        }
+        onSubmit(inputValue.trim());
+        setInputValue("");
+    };
+
     return (
-        <FormStyled
-            onSubmit={(e) => {
-                e.preventDefault();
-                onSubmit(inputValue);
-            }}
-            onReset={() => {
-                onCancel();
-            }}
-        >
+        <FormStyled onSubmit={handleSubmit} onReset={() => onCancel()}>
             <Input value={inputValue} onValueChange={(value) => setInputValue(value)} />
-            <Button type={"submit"}>
+            <Button type="submit">
                 <CheckIcon />
             </Button>
-            <Button type={"reset"}>
+            <Button type="reset">
                 <Cross1Icon />
             </Button>
         </FormStyled>
