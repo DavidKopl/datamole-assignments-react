@@ -1,36 +1,3 @@
 {
-  "items": [
-    {
-      "label": "Parturient Fusce",
-      "isDone": true,
-      "createdAt": 1666874857611,
-      "id": 2,
-      "finishedAt": 1749227269309,
-      "done": true
-    },
-    {
-      "label": "Mattis Ullamcorper Malesuada Euismod",
-      "isDone": true,
-      "createdAt": 1666874866086,
-      "id": 3,
-      "finishedAt": 1749227396508,
-      "done": true
-    },
-    {
-      "label": "Kate",
-      "isDone": false,
-      "createdAt": 1749140411007,
-      "id": 5,
-      "finishedAt": 1749227395965,
-      "done": true
-    },
-    {
-      "label": "Davidos",
-      "isDone": false,
-      "createdAt": 1749224944287,
-      "id": 7,
-      "finishedAt": 1749227384926,
-      "done": true
-    }
-  ]
+  "items": []
 }

@@ -13,7 +13,7 @@ export const Form = (props: FormProps) => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (inputValue.trim() === "") {
-            alert("Don't be stupid and enter a todo before submitting.🤓");
+            alert("Don't be stupid and enter a todo text before submitting.🤓");
             return;
         }
         onSubmit(inputValue.trim());

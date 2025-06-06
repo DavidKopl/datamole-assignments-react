@@ -132,7 +132,7 @@ export const fadeIn = keyframes`
 export const ListItemWrapper = styled.div`
     display: flex;
     align-items: center;
-    padding: 8px;
+    padding-top: 16px;
 
     &:hover > div.actions {
         visibility: visible;
